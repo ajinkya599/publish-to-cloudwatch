@@ -1,0 +1,50 @@
+{
+  "artifacts": [
+    {
+      "type": "ContainerArtifact",
+      "image": "truncatedacr.azurecr.io/demo:8a457cf8e727aaeb19e6579d4ffe02bc74aa1278",
+      "dockerfileUrl": "https://github.com/ajinkya599/k8s-traceability-E2E/blob/8a457cf8e727aaeb19e6579d4ffe02bc74aa1278/./Dockerfile",
+      "helmchartUrls": [],
+      "manifestUrls": [
+        "https://github.com/ajinkya599/k8s-traceability-E2E/blob/8a457cf8e727aaeb19e6579d4ffe02bc74aa1278/./manifests/demo-deployment.yml",
+        "https://github.com/ajinkya599/k8s-traceability-E2E/blob/8a457cf8e727aaeb19e6579d4ffe02bc74aa1278/./manifests/demo-service.yml"
+      ]
+    }
+  ],
+  "workflowRun": {
+    "provider": "GitHub",
+    "workflow": {
+      "repository": "ajinkya599/k8s-traceability-E2E",
+      "name": "K8s deployment traceability E2E - non AKS",
+      "path": ".github/workflows/k8s-traceability-non-AKS.yml",
+      "ref": "refs/heads/main"
+    },
+    "runUri": "https://github.com/ajinkya599/k8s-traceability-E2E/actions/runs/540463666",
+    "createdBy": "ajinkya599",
+    "jobName": "build-and-deploy",
+    "creationTimestamp": "2021-02-05T13:08:48.329Z",
+    "modifiedTimestamp": "2021-02-05T13:08:48.329Z",
+    "status": "success",
+    "commit": "8a457cf8e727aaeb19e6579d4ffe02bc74aa1278"
+  },
+  "targetResource": {
+    "type": "kubernetes",
+    "name": "truncatedCluster",
+    "uri": "truncated",
+    "properties": {
+      "namespace": "truncated-namespace",
+      "kubernetesObjects": [
+        {
+          "version": "apps/v1",
+          "kind": "Deployment",
+          "name": "demo-deployment"
+        },
+        {
+          "version": "v1",
+          "kind": "Service",
+          "name": "demo-service"
+        }
+      ]
+    }
+  }
+}
