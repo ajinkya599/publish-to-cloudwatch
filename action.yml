@@ -4,6 +4,18 @@ inputs:
   logs-path:
     description: 'Path to deployment details logs'
     required: true
+  log-group:
+    description: 'Log group'
+    required: true
+  log-stream:
+    description: 'Log stream'
+    required: true
+  access-key-id:
+    description: 'Access key ID'
+    required: true
+  secret-access-key:
+    description: 'Secret access key'
+    required: true
 runs:
   using: 'node12'
   main: 'lib/index.js'
