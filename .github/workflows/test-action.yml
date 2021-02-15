@@ -1,0 +1,23 @@
+name: Post logs to cloudwatch
+
+on:
+  push:
+    branches: [ check ]
+    paths: [ .github/workflows/test-action.yml ]
+
+jobs:
+  post-logs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Post logs to cloudwatch
+        uses: ajinkya599/publish-to-cloudwatch@dev
+        with:
+          logs-path: sample-deployment-report.json
+          log-group: test-lg
+          log-stream: test-ls
+          access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+          secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
+          
