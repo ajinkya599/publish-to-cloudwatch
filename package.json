@@ -1,0 +1,27 @@
+{
+  "name": "publish-to-cloudwatch",
+  "version": "1.0.0",
+  "description": "GitHub action to publish custom event to cloudwatch",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajinkya599/publish-to-cloudwatch.git"
+  },
+  "author": "ajinkya599",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ajinkya599/publish-to-cloudwatch/issues"
+  },
+  "homepage": "https://github.com/ajinkya599/publish-to-cloudwatch#readme",
+  "devDependencies": {
+    "@types/node": "^14.14.28",
+    "typescript": "^4.1.5"
+  },
+  "dependencies": {
+    "@actions/core": "^1.2.6"
+  }
+}

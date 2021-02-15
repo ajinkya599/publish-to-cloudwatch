@@ -1,0 +1,9 @@
+name: 'Publish to cloudwatch'
+description: 'POC Action to publish custom metrics to cloudwatch'
+inputs: 
+  logs-path:
+    description: 'Path to deployment details logs'
+    required: true
+runs:
+  using: 'node12'
+  main: 'lib/index.js'
