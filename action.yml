@@ -13,6 +13,9 @@ inputs:
   access-key-id:
     description: 'Access key ID'
     required: true
+  region:
+    description: 'Region'
+    required: true
   secret-access-key:
     description: 'Secret access key'
     required: true
