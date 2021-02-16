@@ -7,7 +7,7 @@ export function publishLogEvent(logGroup: string, logStream: string, eventMessag
   const region = core.getInput('region', { required: true });
   let cloudwatchlogs = new CloudWatchLogs({ region: region, accessKeyId: accessKeyId, secretAccessKey: secretAccessKey });
 
-  let eventParams = {
+  let eventParams: CloudWatchLogs.PutLogEventsRequest = {
     logEvents: [
       {
         message: eventMessage,
@@ -15,7 +15,8 @@ export function publishLogEvent(logGroup: string, logStream: string, eventMessag
       }
     ],
     logGroupName: logGroup,
-    logStreamName: logStream
+    logStreamName: logStream,
+    sequenceToken: getNextToken(cloudwatchlogs, logGroup, logStream)
   };
 
   console.log(`Publishing the event to cloudwatch. Log group: ${logGroup}, Log stream: ${logStream}\nEvent params: ${JSON.stringify(eventParams)}`);
@@ -30,4 +31,26 @@ export function publishLogEvent(logGroup: string, logStream: string, eventMessag
 function getTimestamp(): number {
   // Cloudwatch API expects event timestamp to be the no. of milliseconds elapsed since  'Jan 1, 1970 00:00:00 UTC'
   return new Date().valueOf();
+}
+
+function getNextToken(cloudwatchlogs: CloudWatchLogs, logGroup: string, logStream: string): string {
+  let params: CloudWatchLogs.DescribeLogStreamsRequest = {
+    logGroupName: logGroup,
+    logStreamNamePrefix: logStream
+  }
+
+  let nextToken: string = "";
+  console.log(`Trying to obtain the sequenceToken for logGroup: ${logGroup}, logStream: ${logStream} using describeLogStreams...`);
+  cloudwatchlogs.describeLogStreams(params, function(err, data) {
+    if(err) {
+      console.log(err, err.stack);
+      throw new Error('Error while describing stream.');
+    }
+    else if (data && data.logStreams && data.logStreams.length > 0) {
+      nextToken = data.logStreams[0].uploadSequenceToken || "";
+      console.log(`Obtained next sequenceToken: ${nextToken}`);
+    }
+  });
+  console.log("Hope I figured out the sequenceToken!");
+  return nextToken;
 }
