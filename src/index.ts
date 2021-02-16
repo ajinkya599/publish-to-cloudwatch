@@ -5,19 +5,19 @@ import * as CloudWatchHelper from './aws/cloudWatchHelper';
 async function run() {
   try {
     console.log('Publishing traceability...');
-    publishTraceability();
+    await publishTraceability();
     console.log('Done!');
   } catch (error) {
     core.setFailed(error.message);
   }
 }
 
-function publishTraceability() {
+async function publishTraceability() {
   const logsPath = core.getInput('logs-path', { required: true });
   const logGroup = core.getInput('log-group', { required: true });
   const logStream = core.getInput('log-stream', { required: true });
   const eventMessage = JSON.stringify(readJsonFromFile(logsPath));
-  CloudWatchHelper.publishLogEvent(logGroup, logStream, eventMessage);
+  await CloudWatchHelper.publishLogEvent(logGroup, logStream, eventMessage);
 }
 
 function readJsonFromFile(path: string): any {
