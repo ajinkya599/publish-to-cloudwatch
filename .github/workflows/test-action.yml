@@ -21,4 +21,3 @@ jobs:
           access-key-id: ${{ secrets.ACCESS_KEY_ID }}
           region: us-east-2
           secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
-          
